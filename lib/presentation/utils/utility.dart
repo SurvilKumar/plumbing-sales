@@ -12,10 +12,19 @@ class Utility {
 
   //animated text style
 
+  static animatedtextstylelbl({Color? color}) {
+    return TextStyle(
+        color: color ?? ConstantsData.blackcommancolor,
+        fontSize: 24,
+        height: 1.25,
+        fontWeight: FontWeight.w700);
+  }
+
   static animatedtextstyle({Color? color}) {
     return TextStyle(
         color: color ?? ConstantsData.blackcommancolor,
-        fontSize: 30,
-        fontWeight: FontWeight.w900);
+        fontSize: 24,
+        height: 1.5,
+        fontWeight: FontWeight.w700);
   }
 }

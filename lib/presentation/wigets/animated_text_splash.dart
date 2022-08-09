@@ -1,7 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:sales/presentation/utils/constants.dart';
-import 'package:sales/presentation/utils/utility.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../utils/constants.dart';
+import '../utils/utility.dart';
 
 class AnimatedTextSplash extends StatefulWidget {
   const AnimatedTextSplash({Key? key}) : super(key: key);
@@ -29,68 +32,68 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RichText(
-              text: TextSpan(
-                  text: ConstantsData.splashNamep,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold),
+    return Stack(
+      children: [
+        SvgPicture.asset("assets/svg/rectangle_orange.svg",
+            width: size.width, fit: BoxFit.fill),
+        SvgPicture.asset("assets/svg/Vector.svg",
+            width: size.width, fit: BoxFit.fill),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/png/ps_logo_new.png",
+                alignment: Alignment.center,
+              ),
+              Utility.customeSizebox(height: size.height * 0.08),
+              FadeTransition(
+                opacity: Tween<double>(begin: 0, end: 1)
+                    .animate(_animationcontroller),
+                child: Column(
                   children: [
-                TextSpan(
-                    text: ConstantsData.splashSales,
-                    style: TextStyle(color: ConstantsData.blackcommancolor))
-              ])),
-          Align(
-            heightFactor: 0,
-            alignment: Alignment.centerRight,
-            child: Text(
-              ConstantsData.lableEnd,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
+                    Text(
+                      "Australia’s largest",
+                      style: GoogleFonts.poppins(
+                          textStyle: Utility.animatedtextstylelbl(
+                              color: ConstantsData.whitecolor)),
+                    ),
+                    Text(" online plumbing store",
+                        style: GoogleFonts.poppins(
+                            textStyle: Utility.animatedtextstylelbl(
+                                color: ConstantsData.whitecolor)))
+                  ],
+                ),
+              ),
+              Utility.customeSizebox(height: size.height * 0.08),
+              SizedBox(
+                height: size.height * 0.1,
+                width: size.width,
+                child: _finishanimation
+                    ? SizedBox(
+                        height: size.height * 0.1,
+                        child: AnimatedTextKit(
+                            pause: const Duration(milliseconds: 500),
+                            totalRepeatCount: 1,
+                            animatedTexts: [
+                              RotateAnimatedText("Huge Range ",
+                                  textStyle: GoogleFonts.poppins(
+                                      textStyle: Utility.animatedtextstyle())),
+                              RotateAnimatedText("Low Price",
+                                  textStyle: GoogleFonts.poppins(
+                                      textStyle: Utility.animatedtextstyle())),
+                              RotateAnimatedText("Big Brands ",
+                                  textStyle: GoogleFonts.poppins(
+                                      textStyle: Utility.animatedtextstyle()))
+                            ]),
+                      )
+                    : null,
+              ),
+            ],
           ),
-          Utility.customeSizebox(height: size.height * 0.08),
-          FadeTransition(
-            opacity:
-                Tween<double>(begin: 0, end: 1).animate(_animationcontroller),
-            child: Column(
-              children: [
-                Text("Australia’s largest",
-                    style: Utility.animatedtextstyle(
-                        color: ConstantsData.whitecolor)),
-                Text(" online plumbing store",
-                    style: Utility.animatedtextstyle(
-                        color: ConstantsData.whitecolor))
-              ],
-            ),
-          ),
-          Utility.customeSizebox(height: size.height * 0.08),
-          SizedBox(
-            height: size.height * 0.1,
-            child: _finishanimation
-                ? AnimatedTextKit(
-                    pause: const Duration(milliseconds: 500),
-                    totalRepeatCount: 1,
-                    animatedTexts: [
-                        RotateAnimatedText("Huge Range ",
-                            textStyle: Utility.animatedtextstyle()),
-                        RotateAnimatedText("Low Price",
-                            textStyle: Utility.animatedtextstyle()),
-                        RotateAnimatedText("Big Brands ",
-                            textStyle: Utility.animatedtextstyle())
-                      ])
-                : null,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
