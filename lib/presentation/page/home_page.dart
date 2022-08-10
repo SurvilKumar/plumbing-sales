@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,6 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   double progress = 0;
   final urlController = TextEditingController();
+  final router = FluroRouter();
 
   @override
   void dispose() {
@@ -45,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: SizedBox(
@@ -55,9 +61,9 @@ class _HomePageState extends State<HomePage> {
                     width: size.width, fit: BoxFit.fill),
                 SvgPicture.asset("assets/svg/Vector.svg",
                     width: size.width, fit: BoxFit.fill),
-                Padding(
+                          Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
-                  child: Column(
+                  child:    Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Utility.customeSizebox(height: size.height * 0.08),
@@ -171,10 +177,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   void navigationWebPage(BuildContext context, {required String url}) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => WebviewPage(url: url),
-        ));
+
+    if(Platform.isIOS){
+
+
+     Navigator.push(context,  CupertinoPageRoute(builder:   (context) =>   WebviewPage(url: url) , ));
+
+    }else
+      {
+
+        Navigator.push(
+
+
+            context,
+
+            MaterialPageRoute(
+
+
+              builder: (context) =>   WebviewPage(url: url),
+            ));
+
+      }
+
   }
 }

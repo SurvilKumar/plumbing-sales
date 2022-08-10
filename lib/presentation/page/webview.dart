@@ -32,6 +32,7 @@ class _WebviewPageState extends State<WebviewPage> {
       ),
       ios: IOSInAppWebViewOptions(
         allowsInlineMediaPlayback: true,
+
       ));
 
   @override
@@ -55,7 +56,8 @@ class _WebviewPageState extends State<WebviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return WillPopScope (
+
       onWillPop: () async {
         if (await webViewController!.canGoBack()) {
           webViewController!.goBack();
@@ -64,49 +66,66 @@ class _WebviewPageState extends State<WebviewPage> {
           return true;
         }
       },
-      child: SafeArea(
-        child: Stack(
-          children: [
-            InAppWebView(
-              key: webViewKey,
-              initialUrlRequest: URLRequest(
-                url: Uri.parse(widget.url),
-              ),
-              initialOptions: options,
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-              },
-              pullToRefreshController: pullToRefreshController,
-              androidOnPermissionRequest:
-                  (controller, origin, resources) async {
-                return PermissionRequestResponse(
-                    resources: resources,
-                    action: PermissionRequestResponseAction.GRANT);
-              },
-              onLoadStop: (controller, url) async {
-                pullToRefreshController.endRefreshing();
-              },
-              onLoadError: (controller, url, code, message) {
-                pullToRefreshController.endRefreshing();
-              },
-              onProgressChanged: (controller, progress) {
-                if (progress == 100) {
+      child: GestureDetector(
+        onHorizontalDragEnd:(details)async {
+
+          if(details.primaryVelocity! < 0){
+            if(await webViewController!.canGoBack()){
+    webViewController!.goBack();
+
+
+    }
+    else{
+    Navigator.pop(context);
+    }
+  }
+
+        }
+          ,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              InAppWebView(
+                key: webViewKey,
+                initialUrlRequest: URLRequest(
+                  url: Uri.parse(widget.url),
+                ),
+                initialOptions: options,
+                onWebViewCreated: (controller) {
+                  webViewController = controller;
+                },
+                pullToRefreshController: pullToRefreshController,
+                androidOnPermissionRequest:
+                    (controller, origin, resources) async {
+                  return PermissionRequestResponse(
+                      resources: resources,
+                      action: PermissionRequestResponseAction.GRANT);
+                },
+                onLoadStop: (controller, url) async {
                   pullToRefreshController.endRefreshing();
-                }
-                setState(() {
-                  this.progress = progress / 100;
-                  // urlController.text = this.url;
-                });
-              },
-            ),
-            progress < 1.0
-                ? LinearProgressIndicator(
-                    value: progress,
-                    color: ConstantsData.primaryorangcolor,
-                    backgroundColor: ConstantsData.whitecolor.withOpacity(0.5),
-                  )
-                : Container(),
-          ],
+                },
+                onLoadError: (controller, url, code, message) {
+                  pullToRefreshController.endRefreshing();
+                },
+                onProgressChanged: (controller, progress) {
+                  if (progress == 100) {
+                    pullToRefreshController.endRefreshing();
+                  }
+                  setState(() {
+                    this.progress = progress / 100;
+                    // urlController.text = this.url;
+                  });
+                },
+              ),
+              progress < 1.0
+                  ? LinearProgressIndicator(
+                      value: progress,
+                      color: ConstantsData.primaryorangcolor,
+                      backgroundColor: ConstantsData.whitecolor.withOpacity(0.5),
+                    )
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );
