@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return AnimatedSplashScreen(
-        splashTransition: SplashTransition.fadeTransition,
+        splashTransition: SplashTransition.slideTransition,
         animationDuration: const Duration(milliseconds: 200),
         splashIconSize: double.maxFinite,
         centered: true,

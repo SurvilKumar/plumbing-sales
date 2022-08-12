@@ -23,30 +23,31 @@ class TabCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: ConstantsData.blackcommancolor,
-      ),
-      width: size.width * 0.4,
-      height: size.width * 0.4,
-      child: IconButton(
-        icon: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SvgPicture.asset(svgicon),
-            Text(lable,
-                style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: ConstantsData.whitecolor,
-                        fontSize: 16,
-                        height: 1.5,
-                        fontWeight: FontWeight.w700)))
-          ],
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: ConstantsData.blackcommancolor,
         ),
-        onPressed: onPressed,
-        iconSize: 80,
-        color: ConstantsData.whitecolor,
-      ),
-    );
+        width: size.width * 0.4,
+        height: size.width * 0.4,
+        child: InkWell(
+          onTap: onPressed,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SvgPicture.asset(
+                svgicon,
+                fit: BoxFit.fill,
+                height: size.height * 0.09,
+              ),
+              Text(lable,
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          color: ConstantsData.whitecolor,
+                          fontSize: 16,
+                          height: 1.5,
+                          fontWeight: FontWeight.w700))),
+            ],
+          ),
+        ));
   }
 }

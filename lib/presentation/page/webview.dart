@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:sales/presentation/utils/constants.dart';
+import 'package:sales/presentation/utils/utility.dart';
 
 class WebviewPage extends StatefulWidget {
   String url;
@@ -19,6 +20,7 @@ class WebviewPage extends StatefulWidget {
 class _WebviewPageState extends State<WebviewPage> {
   final GlobalKey webViewKey = GlobalKey();
   double progress = 0;
+  String? swipDirection;
 
   InAppWebViewController? webViewController;
   late PullToRefreshController pullToRefreshController;
@@ -32,7 +34,6 @@ class _WebviewPageState extends State<WebviewPage> {
       ),
       ios: IOSInAppWebViewOptions(
         allowsInlineMediaPlayback: true,
-
       ));
 
   @override
@@ -56,8 +57,7 @@ class _WebviewPageState extends State<WebviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope (
-
+    return WillPopScope(
       onWillPop: () async {
         if (await webViewController!.canGoBack()) {
           webViewController!.goBack();
@@ -66,66 +66,73 @@ class _WebviewPageState extends State<WebviewPage> {
           return true;
         }
       },
-      child: GestureDetector(
-        onHorizontalDragEnd:(details)async {
-
-          if(details.primaryVelocity! < 0){
-            if(await webViewController!.canGoBack()){
-    webViewController!.goBack();
-
-
-    }
-    else{
-    Navigator.pop(context);
-    }
-  }
-
-        }
-          ,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              InAppWebView(
-                key: webViewKey,
-                initialUrlRequest: URLRequest(
-                  url: Uri.parse(widget.url),
-                ),
-                initialOptions: options,
-                onWebViewCreated: (controller) {
-                  webViewController = controller;
-                },
-                pullToRefreshController: pullToRefreshController,
-                androidOnPermissionRequest:
-                    (controller, origin, resources) async {
-                  return PermissionRequestResponse(
-                      resources: resources,
-                      action: PermissionRequestResponseAction.GRANT);
-                },
-                onLoadStop: (controller, url) async {
-                  pullToRefreshController.endRefreshing();
-                },
-                onLoadError: (controller, url, code, message) {
-                  pullToRefreshController.endRefreshing();
-                },
-                onProgressChanged: (controller, progress) {
-                  if (progress == 100) {
-                    pullToRefreshController.endRefreshing();
-                  }
-                  setState(() {
-                    this.progress = progress / 100;
-                    // urlController.text = this.url;
-                  });
-                },
+      child: SafeArea(
+        child: Stack(
+          children: [
+            InAppWebView(
+              key: webViewKey,
+              initialUrlRequest: URLRequest(
+                url: Uri.parse(widget.url),
               ),
-              progress < 1.0
-                  ? LinearProgressIndicator(
-                      value: progress,
-                      color: ConstantsData.primaryorangcolor,
-                      backgroundColor: ConstantsData.whitecolor.withOpacity(0.5),
-                    )
-                  : Container(),
-            ],
-          ),
+              initialOptions: options,
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
+              pullToRefreshController: pullToRefreshController,
+              androidOnPermissionRequest:
+                  (controller, origin, resources) async {
+                return PermissionRequestResponse(
+                    resources: resources,
+                    action: PermissionRequestResponseAction.GRANT);
+              },
+              onLoadStop: (controller, url) async {
+                pullToRefreshController.endRefreshing();
+              },
+              onLoadError: (controller, url, code, message) {
+                pullToRefreshController.endRefreshing();
+              },
+              onProgressChanged: (controller, progress) {
+                if (progress == 100) {
+                  pullToRefreshController.endRefreshing();
+                }
+                setState(() {
+                  this.progress = progress / 100;
+                  // urlController.text = this.url;
+                });
+              },
+            ),
+            (Platform.isIOS)
+                ? GestureDetector(
+                    onHorizontalDragEnd: (details) async {
+                      if (details.primaryVelocity! > 0) {
+                        if (await webViewController!.canGoBack()) {
+                          webViewController!.goBack();
+                        } else {
+                          Navigator.pop(context);
+                        }
+                      }
+                    },
+                    onVerticalDragUpdate: (details) {},
+                  )
+                : Container(),
+            progress < 1.0
+                ? Column(
+                    children: [
+                      LinearProgressIndicator(
+                        value: progress,
+                        color: ConstantsData.primaryorangcolor,
+                        backgroundColor:
+                            ConstantsData.whitecolor.withOpacity(0.5),
+                      ),
+                      Utility.customeSizebox(
+                          height: MediaQuery.of(context).size.height * 0.4),
+                      CircularProgressIndicator(
+                        color: ConstantsData.primaryorangcolor,
+                      )
+                    ],
+                  )
+                : Container(),
+          ],
         ),
       ),
     );

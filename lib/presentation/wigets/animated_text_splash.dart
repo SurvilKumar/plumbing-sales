@@ -36,22 +36,34 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
       children: [
         SvgPicture.asset("assets/svg/rectangle_orange.svg",
             width: size.width, fit: BoxFit.fill),
-        SvgPicture.asset("assets/svg/Vector.svg",
-            width: size.width, fit: BoxFit.fill),
+        SvgPicture.asset(
+          "assets/svg/Vector.svg",
+          width: size.width,
+          fit: BoxFit.fill,
+        ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+          padding: EdgeInsets.symmetric(
+            horizontal: size.width * 0.067,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/png/ps_logo_new.png",
-                alignment: Alignment.center,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: size.height * 0.15,
+                ),
+                child: Image.asset(
+                  "assets/png/ps_logo_new.png",
+                  width: size.width,
+                  fit: BoxFit.fill,
+                ),
               ),
-              Utility.customeSizebox(height: size.height * 0.08),
+              Utility.customeSizebox(height: size.height * 0.05),
               FadeTransition(
                 opacity: Tween<double>(begin: 0, end: 1)
                     .animate(_animationcontroller),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Australia’s largest",
@@ -59,34 +71,38 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
                           textStyle: Utility.animatedtextstylelbl(
                               color: ConstantsData.whitecolor)),
                     ),
-                    Text(" online plumbing store",
+                    Text("online plumbing store",
                         style: GoogleFonts.poppins(
                             textStyle: Utility.animatedtextstylelbl(
                                 color: ConstantsData.whitecolor)))
                   ],
                 ),
               ),
-              Utility.customeSizebox(height: size.height * 0.08),
+              Utility.customeSizebox(height: size.height * 0.05),
               SizedBox(
                 height: size.height * 0.1,
                 width: size.width,
                 child: _finishanimation
                     ? SizedBox(
                         height: size.height * 0.1,
-                        child: AnimatedTextKit(
-                            pause: const Duration(milliseconds: 500),
-                            totalRepeatCount: 1,
-                            animatedTexts: [
-                              RotateAnimatedText("Huge Range ",
-                                  textStyle: GoogleFonts.poppins(
-                                      textStyle: Utility.animatedtextstyle())),
-                              RotateAnimatedText("Low Price",
-                                  textStyle: GoogleFonts.poppins(
-                                      textStyle: Utility.animatedtextstyle())),
-                              RotateAnimatedText("Big Brands ",
-                                  textStyle: GoogleFonts.poppins(
-                                      textStyle: Utility.animatedtextstyle()))
-                            ]),
+                        child: FittedBox(
+                          child: AnimatedTextKit(
+                              pause: const Duration(milliseconds: 500),
+                              totalRepeatCount: 1,
+                              animatedTexts: [
+                                RotateAnimatedText("Huge Range",
+                                    textStyle: GoogleFonts.poppins(
+                                        textStyle:
+                                            Utility.animatedtextstyle())),
+                                RotateAnimatedText("Low Prices",
+                                    textStyle: GoogleFonts.poppins(
+                                        textStyle:
+                                            Utility.animatedtextstyle())),
+                                RotateAnimatedText("Big Brands",
+                                    textStyle: GoogleFonts.poppins(
+                                        textStyle: Utility.animatedtextstyle()))
+                              ]),
+                        ),
                       )
                     : null,
               ),
