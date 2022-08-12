@@ -31,7 +31,6 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Stack(
       children: [
         SvgPicture.asset("assets/svg/rectangle_orange.svg",
@@ -84,26 +83,28 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
                 width: size.width,
                 child: _finishanimation
                     ? SizedBox(
-                        height: size.height * 0.1,
-                        child: FittedBox(
-                          child: AnimatedTextKit(
-                              pause: const Duration(milliseconds: 500),
-                              totalRepeatCount: 1,
-                              animatedTexts: [
-                                RotateAnimatedText("Huge Range",
-                                    textStyle: GoogleFonts.poppins(
-                                        textStyle:
-                                            Utility.animatedtextstyle())),
-                                RotateAnimatedText("Low Prices",
-                                    textStyle: GoogleFonts.poppins(
-                                        textStyle:
-                                            Utility.animatedtextstyle())),
-                                RotateAnimatedText("Big Brands",
-                                    textStyle: GoogleFonts.poppins(
-                                        textStyle: Utility.animatedtextstyle()))
-                              ]),
-                        ),
-                      )
+                  height: size.height * 0.1,
+                  child: FittedBox(
+                    child: AnimatedTextKit(
+                        pause: const Duration(milliseconds: 500),
+                        totalRepeatCount: 1,
+                        animatedTexts: [
+                          RotateAnimatedText("Huge Range",
+                              textStyle: GoogleFonts.poppins(
+                                  textStyle:
+                                  Utility.animatedtextstyle())),
+
+                          RotateAnimatedText("Low Prices",
+                              textStyle: GoogleFonts.poppins(
+                                  textStyle:
+                                  Utility.animatedtextstyle())),
+                          RotateAnimatedText("Big Brands",
+                              textStyle: GoogleFonts.poppins(
+                                  textStyle: Utility.animatedtextstyle()))
+                        ]),
+                  ),
+
+                )
                     : null,
               ),
             ],
@@ -111,6 +112,7 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
         ),
       ],
     );
+
   }
 
   wait(

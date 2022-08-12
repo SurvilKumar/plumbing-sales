@@ -60,8 +60,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   SvgPicture.asset("assets/svg/rectangle_orange.svg",
                       width: size.width, fit: BoxFit.fill),
-                  SvgPicture.asset("assets/svg/Vector.svg",
-                      width: size.width, fit: BoxFit.fill),
+
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: size.width * 0.067),
