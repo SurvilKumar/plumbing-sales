@@ -52,130 +52,138 @@ class _HomePageState extends State<HomePage> {
       builder: (context, constraints) => SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: SizedBox(
-              height: size.height,
-              child: Stack(
-                children: [
-                  SvgPicture.asset("assets/svg/rectangle_orange.svg",
-                      width: size.width, fit: BoxFit.fill),
+          body: GestureDetector(
+            onTap: (){
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: SizedBox(
+                height: size.height,
+                child: Stack(
+                  children: [
+                    SvgPicture.asset("assets/svg/rectangle_orange.svg",
+                        width: size.width, fit: BoxFit.fill),
 
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: size.width * 0.067),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Utility.customeSizebox(height: size.height * 0.069),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.09),
-                            child: Image.asset(
-                              "assets/png/ps_logo_new.png",
-                              scale: 1.2,
-                              width: size.width,
-                              fit: BoxFit.fill,
-                              alignment: Alignment.center,
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * 0.067),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Utility.customeSizebox(height: size.height * 0.069),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.09),
+                              child: Image.asset(
+                                "assets/png/ps_logo_new.png",
+                                scale: 1.2,
+                                width: size.width,
+                                fit: BoxFit.fill,
+                                alignment: Alignment.center,
+                              ),
                             ),
-                          ),
-                          Utility.customeSizebox(height: size.height * 0.04),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TabCardView(
-                                  svgicon: "assets/svg/Group2.svg",
-                                  size: size,
-                                  lable: ConstantsData.shoplable,
-                                  iconData: Icons.shopping_cart_outlined,
-                                  onPressed: () async {
-                                    navigationWebPage(context,
-                                        url: ConstantsData.urlShopPage);
-                                  }),
-                              TabCardView(
-                                  svgicon: "assets/svg/Group1.svg",
-                                  size: size,
-                                  lable: ConstantsData.myacclable,
-                                  iconData: Icons.account_circle_outlined,
-                                  onPressed: (() {
-                                    navigationWebPage(context,
-                                        url: ConstantsData.urlmyAccount);
-                                  })),
-                            ],
-                          ),
-                          Utility.customeSizebox(height: 30),
-                          Text(ConstantsData.fproductlable,
-                              style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      color: ConstantsData.whitecolor,
-                                      fontSize: 16,
-                                      height: 1.5,
-                                      fontWeight: FontWeight.w700))),
-                          Utility.customeSizebox(height: size.height * 0.04),
-                          Form(
-                              key: _formKey,
-                              child: TextFormField(
-                                controller: urlController,
-                                validator: (val) {
-                                  if (val == null || val.isEmpty) {
-                                    return "Enter Value";
+                            Utility.customeSizebox(height: size.height * 0.04),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TabCardView(
+                                    svgicon: "assets/svg/Group2.svg",
+                                    size: size,
+                                    constraints: constraints,
+                                    lable: ConstantsData.shoplable,
+                                    iconData: Icons.shopping_cart_outlined,
+                                    onPressed: () async {
+                                      navigationWebPage(context,
+                                          url: ConstantsData.urlShopPage);
+                                    }),
+                                TabCardView(
+                                    constraints: constraints,
+                                    svgicon: "assets/svg/Group1.svg",
+                                    size: size,
+                                    lable: ConstantsData.myacclable,
+                                    iconData: Icons.account_circle_outlined,
+
+                                    onPressed: (() {
+                                      navigationWebPage(context,
+                                          url: ConstantsData.urlmyAccount);
+                                    })),
+                              ],
+                            ),
+                            Utility.customeSizebox(height: 30),
+                            Text(ConstantsData.fproductlable,
+                                style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                        color: ConstantsData.whitecolor,
+                                        fontSize: constraints.maxWidth>450?20: 16,
+                                        height: 1.5,
+                                        fontWeight: FontWeight.w700))),
+                            Utility.customeSizebox(height: size.height * 0.04),
+                            Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                  controller: urlController,
+                                  validator: (val) {
+                                    if (val == null || val.isEmpty) {
+                                      return "Enter Value";
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                      errorStyle: TextStyle(
+                                          color: ConstantsData.blackcommancolor,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          height: 1.5),
+                                      contentPadding:  EdgeInsets.all( constraints.maxWidth>450? 20: 13),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25.0),
+                                      ),
+                                      hintText: ConstantsData.searchHintLbl,
+                                      hintStyle: TextStyle(
+                                          fontSize:constraints.maxWidth>450?18: 15,
+                                          color: ConstantsData.blackcommancolor,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.5),
+                                      prefixIcon: Icon(
+                                        Icons.search,
+                                        color: ConstantsData.primaryorangcolor,
+                                        size: 33,
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white),
+                                )),
+                            Utility.customeSizebox(height: size.height * 0.03),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: ConstantsData.blackcommancolor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    minimumSize: Size(size.width,  constraints.maxWidth>450?70:50)),
+                                onPressed: () {
+                                  final form = _formKey.currentState;
+                                  if (form != null) {
+                                    if (form.validate()) {
+                                      final urlserch =
+                                          ConstantsData.urlFindproduct +
+                                              urlController.text;
+                                      navigationWebPage(context, url: urlserch);
+                                    }
                                   }
-                                  return null;
                                 },
-                                decoration: InputDecoration(
-                                    errorStyle: TextStyle(
-                                        color: ConstantsData.blackcommancolor,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                        height: 1.5),
-                                    contentPadding: const EdgeInsets.all(13),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    hintText: ConstantsData.searchHintLbl,
-                                    hintStyle: TextStyle(
-                                        fontSize: 15,
-                                        color: ConstantsData.blackcommancolor,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.5),
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: ConstantsData.primaryorangcolor,
-                                      size: 33,
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.white),
-                              )),
-                          Utility.customeSizebox(height: size.height * 0.03),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: ConstantsData.blackcommancolor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  minimumSize: Size(size.width, 50)),
-                              onPressed: () {
-                                final form = _formKey.currentState;
-                                if (form != null) {
-                                  if (form.validate()) {
-                                    final urlserch =
-                                        ConstantsData.urlFindproduct +
-                                            urlController.text;
-                                    navigationWebPage(context, url: urlserch);
-                                  }
-                                }
-                              },
-                              child: Text(
-                                ConstantsData.serchlbl,
-                                style: TextStyle(
-                                    color: ConstantsData.whitecolor,
-                                    fontSize: 15,
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w700),
-                              ))
-                        ]),
-                  ),
-                ],
+                                child: Text(
+                                  ConstantsData.serchlbl,
+                                  style: TextStyle(
+                                      color: ConstantsData.whitecolor,
+                                      fontSize: constraints.maxWidth>450?20:15,
+                                      height: 1.5,
+                                      fontWeight: FontWeight.w700),
+                                ))
+                          ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
