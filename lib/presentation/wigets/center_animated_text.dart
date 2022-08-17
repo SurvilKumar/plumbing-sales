@@ -17,20 +17,22 @@ class CenterAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: Tween<double>(begin: 0, end: 1).animate(_animationcontroller),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Australia’s largest",
-            style: GoogleFonts.poppins(
-                textStyle: Utility.animatedtextstylelbl(
-                    color: ConstantsData.whitecolor)),
-          ),
-          Text("online plumbing store",
+      child: FittedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Australia’s largest",
               style: GoogleFonts.poppins(
                   textStyle: Utility.animatedtextstylelbl(
-                      color: ConstantsData.whitecolor)))
-        ],
+                      color: ConstantsData.whitecolor)),
+            ),
+            Text("online plumbing store",
+                style: GoogleFonts.poppins(
+                    textStyle: Utility.animatedtextstylelbl(
+                        color: ConstantsData.whitecolor)))
+          ],
+        ),
       ),
     );
   }

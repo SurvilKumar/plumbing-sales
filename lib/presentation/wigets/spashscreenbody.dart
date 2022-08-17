@@ -26,6 +26,8 @@ class SplashBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+        fit: StackFit.expand,
+
       children: [
         SvgPicture.asset("assets/svg/rectangle_orange.svg",
             width: size.width, fit: BoxFit.fill),

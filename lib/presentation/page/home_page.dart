@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
               child: SizedBox(
                 height: size.height,
                 child: Stack(
+                  fit: StackFit.expand,
                   children: [
                     SvgPicture.asset("assets/svg/rectangle_orange.svg",
                         width: size.width, fit: BoxFit.fill),
