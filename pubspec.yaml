@@ -55,7 +55,7 @@ flutter_icons:
   image_path_android: "assets/png/app-store-icon.png"
   image_path_ios: "assets/png/play-store-icon.png"
   adaptive_icon_background: "#FFFF7D00"
-#  adaptive_icon_foreground: "assets/png/play_store_512.png"
+  adaptive_icon_foreground: "assets/png/play_store_512.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
