@@ -13,7 +13,8 @@ class TextSplashAnimated extends StatelessWidget {
   Widget build(BuildContext context) {
     return FittedBox(
       child: AnimatedTextKit(
-          pause: const Duration(milliseconds: 500),
+
+          pause: const Duration(milliseconds: 700),
           totalRepeatCount: 1,
           animatedTexts: [
             RotateAnimatedText("Huge Range",

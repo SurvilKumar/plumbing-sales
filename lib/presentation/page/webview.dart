@@ -101,6 +101,7 @@ class _WebviewPageState extends State<WebviewPage> {
                 });
               },
             ),
+
             (Platform.isIOS)
                 ? GestureDetector(
                     onHorizontalDragEnd: (details) async {
