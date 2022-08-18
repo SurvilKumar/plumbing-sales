@@ -14,7 +14,7 @@ class TextSplashAnimated extends StatelessWidget {
     return FittedBox(
       child: AnimatedTextKit(
 
-          pause: const Duration(milliseconds: 700),
+          pause: const Duration(milliseconds: 500),
           totalRepeatCount: 1,
           animatedTexts: [
             RotateAnimatedText("Huge Range",
@@ -24,6 +24,7 @@ class TextSplashAnimated extends StatelessWidget {
                 textStyle: GoogleFonts.poppins(
                     textStyle: Utility.animatedtextstyle())),
             RotateAnimatedText("Big Brands",
+
                 textStyle:
                     GoogleFonts.poppins(textStyle: Utility.animatedtextstyle()))
           ]),

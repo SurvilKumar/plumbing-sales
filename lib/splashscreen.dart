@@ -18,14 +18,11 @@ class SplashScreen extends StatelessWidget {
 
     return AnimatedSplashScreen(
         splashTransition: SplashTransition.fadeTransition,
-  pageTransitionType:PageTransitionType.fade ,
-
-
-
+  // pageTransitionType:PageTransitionType.fade ,
         animationDuration: const Duration(milliseconds: 200),
         splashIconSize: double.maxFinite,
         centered: true,
-        duration: 9100,
+        duration: 9600,
         splash: const AnimatedTextSplash(),
         nextScreen: HomePage());
   }
