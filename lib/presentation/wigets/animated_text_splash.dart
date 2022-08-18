@@ -39,7 +39,7 @@ class _AnimatedTextSplashState extends State<AnimatedTextSplash>
   wait(
     AnimationController animationcontroller,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     await animationcontroller.forward();
     setState(() {
