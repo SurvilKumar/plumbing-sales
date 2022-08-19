@@ -24,7 +24,7 @@ class TextSplashAnimated extends StatelessWidget {
                 textStyle: GoogleFonts.poppins(
                     textStyle: Utility.animatedtextstyle())),
             RotateAnimatedText("Big Brands",
-
+          
                 textStyle:
                     GoogleFonts.poppins(textStyle: Utility.animatedtextstyle()))
           ]),
